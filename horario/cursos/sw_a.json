@@ -1,21 +1,21 @@
 {
     "dias" : {
             "1" : [
-                "Laboratorio de Computación Científica" , "Tecnologías de Aplicaciones Web" , "Tecnologías de Aplicaciones Web"
+                "Gestión de Proyectos Software" , "Ingeniería Web" , "Métodos Formales para la Ingeniería del Software"
                         ],
             "2" : [
-                "Seguridad en Servicios y Aplicaciones" , "Mantenimiento y Pruebas de Software" , "Interfaces de Usuario"
+                "Inteligencia Artifical para Juegos" , "Métodos Formales para la Ingeniería del Software" , "Ingeniería Web"
                         ],
             "3" : [
-                "Interfaces de Usuario" , "Tecnologías de Aplicaciones Web" , "Laboratorio de Computación Científica"
+                "Métodos Formales para la Ingeniería del Software" , "Gestión de Proyectos Software" , "Sistemas Empotrados"
                         ],
             "4" : [
-                "Interfaces de Usuario" , "Mantenimiento y Pruebas de Software" , "Seguridad en Servicios y Aplicaciones"
+                "Inteligencia Artifical para Juegos" , "Sistemas Empotrados" , "Gestión de Proyectos Software"
                         ],
             "5" : [
-                "Seguridad en Servicios y Aplicaciones" , "Mantenimiento y Pruebas de Software" , "Laboratorio de Computación Científica"
+                "Sistemas Empotrados" , "Ingeniería Web" , "Inteligencia Artifical para Juegos"
                         ]
     },
-    "name" : "3º A Ing. del Software"
+    "name" : "4º A Ing. del Software"
 }
             

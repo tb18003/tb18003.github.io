@@ -11,23 +11,19 @@ window.onload = async () => {
 function createTable(data) {
     var table = "<tbody>";
     const links = {
-        "Laboratorio de Computación Científica" : "https://informatica.cv.uma.es/course/view.php?id=5152",
-        "Tecnologías de Aplicaciones Web" : "https://informatica.cv.uma.es/course/view.php?id=5224",
-        "Seguridad en Servicios y Aplicaciones" : "https://informatica.cv.uma.es/course/view.php?id=5162",
-        "Mantenimiento y Pruebas de Software" : "https://informatica.cv.uma.es/course/view.php?id=5202",
-        "Interfaces de Usuario" : "https://informatica.cv.uma.es/course/view.php?id=5230"
+        "Gestión de Proyectos Software" : "https://informatica.cv.uma.es/course/view.php?id=5405",
+        "Ingeniería Web" : "https://informatica.cv.uma.es/course/view.php?id=5322",
+        "Métodos Formales para la Ingeniería del Software" : "https://informatica.cv.uma.es/course/view.php?id=5297",
+        "Inteligencia Artifical para Juegos" : "https://informatica.cv.uma.es/course/view.php?id=5371",
+        "Sistemas Empotrados" : "https://informatica.cv.uma.es/course/view.php?id=5442"
     }
 
     for (var i = 0; i < 3; i++) {
         table += "<tr>"
         table += "<th scope=\"row\">" + getHour(i) + "</th>"
-        for (var j = 1; j <= 5; j++) {
-            if(i == 0){
-                table += "<td><a style=\"text-decoration: none; color: white\" href=\"" + links[data[j][i]] + "\" target=\"_blank\"><b>" + data[j][i] + "</b></a></td>"
-            } else {
-                table += "<td><a style=\"text-decoration: none; color: white\" href=\"" + links[data[j][i]] + "\" target=\"_blank\">" + data[j][i] + "</a></td>"
-            }
-        }
+        for (var j = 1; j <= 5; j++) 
+            table += "<td><a class=\"link\" href=\"" + links[data[j][i]] + "\" target=\"_blank\">" + data[j][i] + "</a></td>"
+        
         table += "</tr>"
     }
 
@@ -41,11 +37,11 @@ function createTable(data) {
 function getHour(n) {
     var res = undefined
     switch (n) {
-        case 0: res = "8:45 - 10:30"
+        case 0: res = "15:30 - 17:15"
             break
-        case 1: res = "10:45 - 12:30"
+        case 1: res = "17:30 - 19:15"
             break
-        case 2: res = "12:45 - 14:30"
+        case 2: res = "19:30 - 21:15"
     }
     return res
 }
