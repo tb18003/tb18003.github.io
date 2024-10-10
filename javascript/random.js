@@ -15,4 +15,5 @@ window.onload = () => {
   num = parseInt(num);
   document.getElementById("rand").innerHTML = frase[num];
   console.log(frase.length + " / " + num)
+  document.getElementById("yearSpan").innerText = new Date().getFullYear();
 }
