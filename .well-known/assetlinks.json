@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "io.github.tb18003.musicmania",
       "sha256_cert_fingerprints": [
-        "25:63:7F:D8:96:0D:53:6F:67:0E:6C:7D:6C:92:88:A9:D8:2C:40:98:E4:13:4F:74:1A:33:13:17:7B:0D:98:D7"
+        "25:63:7F:D8:96:0D:53:6F:67:0E:6C:7D:6C:92:88:A9:D8:2C:40:98:E4:13:4F:74:1A:33:13:17:7B:0D:98:D7",
+        "10:C9:3C:F7:5A:08:0A:EE:A4:5D:BE:68:2E:5D:67:00:1A:32:EA:25:61:EE:51:09:54:5C:B2:F5:52:DD:5E:46"
       ]
     }
   }
