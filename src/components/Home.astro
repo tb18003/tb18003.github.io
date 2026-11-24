@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from './Nav.astro';
+import Hero from './Hero.astro';
+import About from './About.astro';
+import Projects from './Projects.astro';
+import Orgs from './Orgs.astro';
+import Deprecated from './Deprecated.astro';
+import Contact from './Contact.astro';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<Base lang={lang}>
+  <Nav lang={lang} />
+  <main id="main">
+    <Hero lang={lang} />
+    <About lang={lang} />
+    <Projects lang={lang} />
+    <Orgs lang={lang} />
+    <Deprecated lang={lang} />
+    <Contact lang={lang} />
+  </main>
+</Base>

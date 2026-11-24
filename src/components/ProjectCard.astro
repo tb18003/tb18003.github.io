@@ -1,0 +1,170 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { orgs, type Project } from '../data/projects';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  project: Project;
+  lang: Lang;
+  variant?: 'featured' | 'default' | 'legacy';
+}
+
+const { project: p, lang, variant = 'default' } = Astro.props;
+const t = useTranslations(lang);
+const legacy = variant === 'legacy';
+const org = p.org ? orgs[p.org] : undefined;
+const primary = p.links.live ?? p.links.repo;
+const external = (href: string) => /^https?:\/\//.test(href);
+const [c1, c2] = p.hue ?? ['#3f3f46', '#18181b'];
+const gradient = `radial-gradient(120% 120% at 0% 0%, ${c1}, transparent 60%), radial-gradient(120% 120% at 100% 100%, ${c2}, transparent 65%), #0f0f14`;
+const aspect = variant === 'featured' ? 'aspect-[16/10]' : legacy ? 'aspect-[16/10]' : 'aspect-[16/9]';
+---
+
+<article
+  class:list={[
+    'card group relative flex h-full flex-col overflow-hidden transition duration-300',
+    legacy
+      ? 'hover:border-muted/40'
+      : 'hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_20px_60px_-20px] hover:shadow-accent/20',
+  ]}
+>
+  <!-- Cover -->
+  <div
+    class:list={[
+      'relative overflow-hidden border-b border-line',
+      aspect,
+      legacy && 'grayscale transition duration-500 group-hover:grayscale-0',
+    ]}
+    style={p.cover?.bg ? `background:${p.cover.bg}` : `background:${gradient}`}
+  >
+    {
+      p.cover?.frame === 'phone' ? (
+        <div class="absolute inset-x-0 top-8 mx-auto w-[46%] max-w-[15rem] rounded-[1.6rem] border-[5px] border-black/80 bg-black shadow-2xl transition-transform duration-500 group-hover:-translate-y-2">
+          <Image
+            src={p.cover.src}
+            alt=""
+            widths={[240, 480]}
+            sizes="(min-width: 1024px) 15rem, 46vw"
+            class="block w-full rounded-[1.25rem]"
+          />
+        </div>
+      ) : p.cover ? (
+        <Image
+          src={p.cover.src}
+          alt=""
+          widths={[400, 800, 1200]}
+          sizes="(min-width: 1024px) 36rem, 100vw"
+          class:list={[
+            'size-full transition-transform duration-500 group-hover:scale-[1.03]',
+            p.cover.fit === 'contain' ? 'object-contain p-6' : 'object-cover',
+          ]}
+        />
+      ) : (
+        <div class="grid size-full place-items-center">
+          <div class="bg-grid absolute inset-0 opacity-60" />
+          <span class="relative grid size-16 place-items-center rounded-2xl border border-white/15 bg-white/10 text-white backdrop-blur transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3">
+            <Icon name={p.icon} size={30} />
+          </span>
+        </div>
+      )
+    }
+
+    {
+      variant === 'featured' && (
+        <span class="absolute top-3 left-3 rounded-full bg-black/70 px-2.5 py-1 font-mono text-[11px] text-[#c8ff4d] backdrop-blur">
+          ★ {t('projects.featured')}
+        </span>
+      )
+    }
+    {
+      legacy && p.deprecatedNote && (
+        <span class="absolute top-3 right-3 rotate-2 rounded-md border border-warn/40 bg-black/75 px-2 py-1 font-mono text-[11px] text-[#fbbf24]">
+          {p.deprecatedNote[lang]}
+        </span>
+      )
+    }
+  </div>
+
+  <!-- Body -->
+  <div class:list={['flex flex-1 flex-col', legacy ? 'p-5' : 'p-6']}>
+    <div class="flex flex-wrap items-center gap-2 text-xs text-muted">
+      {org ? <span class="font-mono">{org.name}</span> : <span class="font-mono">{t('projects.personal')}</span>}
+      {p.year && <span aria-hidden="true">·</span>}
+      {p.year && <span class="font-mono">{p.year}</span>}
+    </div>
+
+    <h3 class:list={['mt-2 font-semibold tracking-tight', variant === 'featured' ? 'text-2xl' : 'text-xl']}>
+      {
+        primary ? (
+          <a
+            href={primary}
+            target={external(primary) ? '_blank' : undefined}
+            rel={external(primary) ? 'noopener' : undefined}
+            class:list={[
+              'after:absolute after:inset-0 after:content-[""] focus-visible:outline-none',
+              legacy && 'line-through decoration-warn/70 decoration-2',
+            ]}
+          >
+            {p.title}
+          </a>
+        ) : (
+          <span class:list={[legacy && 'line-through decoration-warn/70 decoration-2']}>{p.title}</span>
+        )
+      }
+    </h3>
+
+    {
+      p.award && (
+        <p class="mt-3 inline-flex w-fit items-center gap-2 rounded-full border border-[#fbbf24]/40 bg-[#fbbf24]/10 px-3 py-1 text-xs font-medium text-warn">
+          <Icon name="trophy" size={14} />
+          {p.award[lang]}
+        </p>
+      )
+    }
+
+    <p class:list={['mt-3 leading-relaxed text-pretty text-muted', legacy ? 'text-sm' : 'text-[15px]']}>
+      {p.description[lang]}
+    </p>
+
+    {
+      p.stack.length > 0 && (
+        <ul class="mt-5 flex flex-wrap gap-1.5">
+          {p.stack.map((s) => (
+            <li class="chip">{s}</li>
+          ))}
+        </ul>
+      )
+    }
+
+    {
+      (p.links.repo || p.links.live) && (
+        <div class="relative z-10 mt-auto flex flex-wrap gap-2 pt-5">
+          {p.links.live && (
+            <a
+              href={p.links.live}
+              target={external(p.links.live) ? '_blank' : undefined}
+              rel={external(p.links.live) ? 'noopener' : undefined}
+              class="inline-flex items-center gap-1.5 rounded-full bg-text px-3.5 py-1.5 text-xs font-medium text-bg transition hover:opacity-85"
+            >
+              <Icon name="globe" size={14} />
+              {legacy ? t('deprecated.open') : t('projects.live')}
+              <Icon name="arrowUpRight" size={12} />
+            </a>
+          )}
+          {p.links.repo && (
+            <a
+              href={p.links.repo}
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-1.5 rounded-full border border-line px-3.5 py-1.5 text-xs font-medium text-text transition hover:border-muted/60"
+            >
+              <Icon name="github" size={14} />
+              {t('projects.repo')}
+            </a>
+          )}
+        </div>
+      )
+    }
+  </div>
+</article>

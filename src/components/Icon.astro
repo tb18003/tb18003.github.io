@@ -1,0 +1,30 @@
+---
+import { iconSvg, type IconName } from './icons';
+
+interface Props {
+  name: IconName;
+  class?: string;
+  size?: number;
+  label?: string;
+}
+
+const { name, class: className = '', size = 20, label } = Astro.props;
+const { body, filled } = iconSvg(name);
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  width={size}
+  height={size}
+  class={`shrink-0 ${className}`}
+  fill={filled ? 'currentColor' : 'none'}
+  stroke={filled ? 'none' : 'currentColor'}
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  set:html={body}
+/>

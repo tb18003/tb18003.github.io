@@ -1,69 +1,43 @@
-# [Start Bootstrap - Stylish Portfolio](https://startbootstrap.com/theme/stylish-portfolio/)
+# tb18003.github.io
 
-[Stylish Portfolio](https://startbootstrap.com/theme/stylish-portfolio/) is a responsive, one page portfolio theme for [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/). The theme features multiple content sections with an off canvas navigation menu.
+Mi portfolio personal: **https://tb18003.github.io** ([EN](https://tb18003.github.io/en/))
 
-## Preview
+Hecho con [Astro](https://astro.build) y [Tailwind CSS](https://tailwindcss.com). Genera HTML estático y se despliega solo en GitHub Pages con cada push a `master` ([workflow](.github/workflows/static.yml)).
 
-[![Stylish Portfolio Preview](https://assets.startbootstrap.com/img/screenshots/themes/stylish-portfolio.png)](https://startbootstrap.github.io/startbootstrap-stylish-portfolio/)
+## Desarrollo
 
-**[View Live Preview](https://startbootstrap.github.io/startbootstrap-stylish-portfolio/)**
+Necesitas Node 22.23.4 o superior (ver `.nvmrc`).
 
-## Status
+```sh
+npm install
+npm run dev       # servidor local en http://localhost:4321
+npm run build     # genera dist/
+npm run preview   # sirve dist/ en local
+npm run check     # comprueba tipos
+```
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/StartBootstrap/startbootstrap-stylish-portfolio/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/startbootstrap-stylish-portfolio.svg)](https://www.npmjs.com/package/startbootstrap-stylish-portfolio)
-[![Build Status](https://travis-ci.org/StartBootstrap/startbootstrap-stylish-portfolio.svg?branch=master)](https://travis-ci.org/StartBootstrap/startbootstrap-stylish-portfolio)
-[![dependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-stylish-portfolio/status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-stylish-portfolio)
-[![devDependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-stylish-portfolio/dev-status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-stylish-portfolio?type=dev)
+## Dónde está cada cosa
 
-## Download and Installation
+| Qué | Dónde |
+| --- | --- |
+| Proyectos (activos y `@deprecated`) | [src/data/projects.ts](src/data/projects.ts) |
+| Textos ES/EN y frases aleatorias del hero | [src/i18n/ui.ts](src/i18n/ui.ts) |
+| Redes sociales | [src/data/social.ts](src/data/social.ts) |
+| Secciones de la página | [src/components/](src/components/) |
+| Colores y tema claro/oscuro | [src/styles/global.css](src/styles/global.css) |
+| Portadas de proyectos | [src/assets/](src/assets/) |
 
-To begin using this template, choose one of the following options to get started:
+Para añadir un proyecto, añade una entrada a `projects` en `src/data/projects.ts`. Con `status: 'deprecated'` pasa a la sección legacy.
 
-* [Download the latest release on Start Bootstrap](https://startbootstrap.com/theme/stylish-portfolio/)
-* Install via npm: `npm i startbootstrap-stylish-portfolio`
-* Clone the repo: `git clone https://github.com/StartBootstrap/startbootstrap-stylish-portfolio.git`
-* [Fork, Clone, or Download on GitHub](https://github.com/StartBootstrap/startbootstrap-stylish-portfolio)
+## Archivos que se sirven tal cual
 
-## Usage
+Todo lo que hay en [public/](public/) se copia sin cambios a la raíz del sitio:
 
-### Basic Usage
+- `/.well-known/assetlinks.json` y `/musicmania/callback`: App Link del login con Spotify de [MusicMania](https://github.com/tb18003/musicmania). **No moverlos ni renombrarlos.**
+- `/horario/`: el antiguo proyecto Horario.
 
-After downloading, simply edit the HTML and CSS files included with the template in your favorite text editor to make changes. These are the only files you need to worry about, you can ignore everything else! To preview the changes you make to the code, you can open the `index.html` file in your web browser.
+Los proyectos con su propio repo de Pages (como `/Periodic-Time/`) se sirven desde sus repos y no dependen de este.
 
-### Advanced Usage
+## Licencia
 
-After installation, run `npm install` and then run `npm start` which will open up a preview of the template in your default browser, watch for changes to core template files, and live reload the browser when changes are saved. You can view the `gulpfile.js` to see which tasks are included with the dev environment.
-
-#### Gulp Tasks
-
-* `gulp` the default task that builds everything
-* `gulp watch` browserSync opens the project in your default browser and live reloads when changes are made
-* `gulp css` compiles SCSS files into CSS and minifies the compiled CSS
-* `gulp js` minifies the themes JS file
-* `gulp vendor` copies dependencies from node_modules to the vendor directory
-
-You must have npm installed globally in order to use this build environment.
-
-## Bugs and Issues
-
-Have a bug or an issue with this template? [Open a new issue](https://github.com/StartBootstrap/startbootstrap-stylish-portfolio/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](https://startbootstrap.com/theme/stylish-portfolio/).
-
-## About
-
-Start Bootstrap is an open source library of free Bootstrap templates and themes. All of the free templates and themes on Start Bootstrap are released under the MIT license, which means you can use them for any purpose, even for commercial projects.
-
-* <https://startbootstrap.com>
-* <https://twitter.com/SBootstrap>
-
-Start Bootstrap was created by and is maintained by **[David Miller](https://davidmiller.io/)**.
-
-* <https://davidmiller.io>
-* <https://twitter.com/davidmillerhere>
-* <https://github.com/davidtmiller>
-
-Start Bootstrap is based on the [Bootstrap](https://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
-
-## Copyright and License
-
-Copyright 2013-2020 Start Bootstrap LLC. Code released under the [MIT](https://github.com/StartBootstrap/startbootstrap-stylish-portfolio/blob/gh-pages/LICENSE) license.
+[CC BY 4.0](LICENSE): puedes reutilizarlo y adaptarlo, también con fines comerciales, siempre que cites la autoría. El material de terceros (iconos, fuentes e imágenes de los proyectos de equipo) mantiene su propia licencia; los detalles están en [LICENSE](LICENSE).

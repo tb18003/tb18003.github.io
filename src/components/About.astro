@@ -1,0 +1,73 @@
+---
+import Icon from './Icon.astro';
+import type { IconName } from './icons';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const timeline: { icon: IconName; title: string; place: string; detail?: string; current?: boolean }[] = [
+  { icon: 'briefcase', title: t('about.job'), place: t('about.now'), detail: t('about.job.detail'), current: true },
+  { icon: 'shield', title: t('about.master'), place: t('about.master.place') },
+  { icon: 'cap', title: t('about.degree'), place: t('about.degree.place'), detail: t('about.degree.detail') },
+];
+
+const skills = [
+  lang === 'es' ? 'Ciberseguridad' : 'Cybersecurity',
+  'Pentesting',
+  'Kotlin · Android',
+  'React · TypeScript',
+  'Python',
+  'ROS2',
+  'Docker',
+  'Java',
+  'Postgres · SQL',
+  'Unity · C#',
+  'Linux',
+];
+---
+
+<section id="about" class="border-t border-line py-24 sm:py-32">
+  <div class="container-page grid gap-14 lg:grid-cols-2">
+    <div data-reveal>
+      <p class="kicker">{t('about.kicker')}</p>
+      <h2 class="section-title">{t('about.title')}</h2>
+      <p class="mt-6 text-lg leading-relaxed text-pretty text-muted">{t('about.p1')}</p>
+      <p class="mt-4 text-lg leading-relaxed text-pretty text-muted">{t('about.p2')}</p>
+
+      <h3 class="mt-10 font-mono text-xs tracking-widest text-muted uppercase">{t('about.skills')}</h3>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {skills.map((s) => <li class="chip text-xs text-text">{s}</li>)}
+      </ul>
+    </div>
+
+    <div data-reveal>
+      <h3 class="font-mono text-xs tracking-widest text-muted uppercase">{t('about.timeline')}</h3>
+      <ol class="relative mt-6 space-y-4 before:absolute before:top-6 before:bottom-6 before:left-[1.4rem] before:w-px before:bg-line">
+        {
+          timeline.map((item) => (
+            <li class="card relative flex gap-4 p-5">
+              <span
+                class:list={[
+                  'relative z-10 grid size-11 shrink-0 place-items-center rounded-xl border',
+                  item.current ? 'border-transparent bg-accent text-on-accent' : 'border-line bg-surface-2 text-muted',
+                ]}
+              >
+                <Icon name={item.icon} size={18} />
+              </span>
+              <div>
+                <p class="font-mono text-xs text-accent-ink">{item.place}</p>
+                <p class="mt-1 font-semibold">{item.title}</p>
+                {item.detail && <p class="mt-1 text-sm text-muted">{item.detail}</p>}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>

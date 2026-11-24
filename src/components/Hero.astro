@@ -1,0 +1,113 @@
+---
+import Icon from './Icon.astro';
+import { phrases, useTranslations, type Lang } from '../i18n/ui';
+import { links } from '../data/social';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const list = phrases[lang];
+---
+
+<section class="relative isolate overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
+  <div
+    class="bg-grid absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="absolute -top-40 left-1/2 -z-10 h-[28rem] w-[48rem] -translate-x-1/2 rounded-full bg-accent/15 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="container-page grid items-center gap-14 lg:grid-cols-[1.25fr_1fr]">
+    <div>
+      <p class="inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-3 py-1 text-xs text-muted backdrop-blur">
+        <span class="relative flex size-2">
+          <span class="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:hidden"></span>
+          <span class="relative inline-flex size-2 rounded-full bg-accent"></span>
+        </span>
+        <Icon name="pin" size={13} />
+        {t('hero.location')}
+      </p>
+
+      <h1 class="mt-6 text-5xl font-semibold tracking-tight sm:text-7xl">
+        <span class="block text-lg font-normal text-muted sm:text-xl">{t('hero.greeting')}</span>
+        Toni Blas<span class="text-accent-ink">.</span>
+      </h1>
+      <p class="mt-4 flex items-center gap-2 font-mono text-base text-accent-ink sm:text-lg">
+        <Icon name="shield" size={18} />
+        {t('hero.role')}
+      </p>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted">{t('hero.intro')}</p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a href="#projects" class="btn-primary">
+          {t('hero.cta.projects')}
+          <Icon name="arrowDown" size={16} />
+        </a>
+        <a href={links.github} class="btn-ghost" target="_blank" rel="noopener">
+          <Icon name="github" size={16} />
+          {t('hero.cta.github')}
+        </a>
+        <div class="ml-1 flex items-center gap-1">
+          <a href={links.linkedin} target="_blank" rel="noopener" class="grid size-10 place-items-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-text">
+            <Icon name="linkedin" size={17} label="LinkedIn" />
+          </a>
+          <a href={links.x} target="_blank" rel="noopener" class="grid size-10 place-items-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-text">
+            <Icon name="x" size={16} label="X / Twitter" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terminal card with a random phrase (the old random.js, now with a reroll button) -->
+    <div class="card overflow-hidden shadow-2xl shadow-black/20" data-phrases={JSON.stringify(list)}>
+      <div class="flex items-center gap-2 border-b border-line bg-surface-2 px-4 py-3">
+        <span class="size-3 rounded-full bg-[#ff5f57]"></span>
+        <span class="size-3 rounded-full bg-[#febc2e]"></span>
+        <span class="size-3 rounded-full bg-[#28c840]"></span>
+        <span class="ml-3 font-mono text-xs text-muted">toni@tb18003: ~</span>
+      </div>
+      <div class="space-y-3 p-5 font-mono text-sm leading-relaxed">
+        <p><span class="text-accent-ink">$</span> whoami</p>
+        <p class="text-muted">toni · {t('hero.role').toLowerCase()} · {lang === 'es' ? 'ing. software' : 'software engineer'}</p>
+        <p><span class="text-accent-ink">$</span> cat stack.txt</p>
+        <p class="text-muted">kotlin · typescript · python · ros2 · docker · unity</p>
+        <p><span class="text-accent-ink">$</span> fortune</p>
+        <p class="min-h-[3em] text-text" aria-live="polite">
+          <span data-phrase>{list[0]}</span><span class="caret ml-0.5 inline-block h-4 w-2 translate-y-0.5 bg-accent"></span>
+        </p>
+        <button
+          type="button"
+          class="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1 text-xs text-muted transition-colors hover:text-text"
+          data-reroll
+        >
+          <Icon name="refresh" size={12} />
+          {t('hero.prompt.next')}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const box = document.querySelector<HTMLElement>('[data-phrases]');
+  if (box) {
+    const list: string[] = JSON.parse(box.dataset.phrases ?? '[]');
+    const out = box.querySelector<HTMLElement>('[data-phrase]')!;
+    let last = -1;
+    const roll = () => {
+      let i = Math.floor(Math.random() * list.length);
+      if (list.length > 1 && i === last) i = (i + 1) % list.length;
+      last = i;
+      out.textContent = list[i];
+    };
+    roll();
+    box.querySelector('[data-reroll]')?.addEventListener('click', roll);
+  }
+</script>

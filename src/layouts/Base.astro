@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+import { homeUrl, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const site = Astro.site ?? new URL('https://tb18003.github.io');
+const canonical = new URL(homeUrl[lang], site).href;
+const title = t('meta.title');
+const description = t('meta.description');
+---
+
+<!doctype html>
+<html lang={lang} data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Toni Blas" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es" href={new URL(homeUrl.es, site).href} />
+    <link rel="alternate" hreflang="en" href={new URL(homeUrl.en, site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL(homeUrl.es, site).href} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <meta name="theme-color" content="#0a0a0f" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@tb_18003" />
+
+    <script is:inline>
+      // Runs before paint: apply the saved theme (or the OS preference) and flag that JS is on.
+      (() => {
+        const root = document.documentElement;
+        root.classList.add('js');
+        let theme = null;
+        try { theme = localStorage.getItem('theme'); } catch {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        root.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+  <body class="min-h-dvh">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent"
+      >{t('nav.skip')}</a
+    >
+    <slot />
+
+    <script>
+      const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach((el) => el.classList.add('is-visible'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px' },
+        );
+        els.forEach((el) => io.observe(el));
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+---
+import Icon from './Icon.astro';
+import ProjectCard from './ProjectCard.astro';
+import { deprecated } from '../data/projects';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="legacy" class="border-t border-line py-24 sm:py-32">
+  <div class="container-page">
+    <div class="flex flex-wrap items-center gap-3" data-reveal>
+      <span
+        class="rounded-md border border-warn/40 bg-warn/10 px-2.5 py-1 font-mono text-sm text-warn line-through decoration-2"
+        title={t('deprecated.tooltip')}
+      >
+        {t('deprecated.badge')}
+      </span>
+      <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{t('deprecated.title')}</h2>
+    </div>
+
+    <!-- Fake console warning -->
+    <div
+      class="mt-8 overflow-x-auto rounded-xl border border-warn/30 bg-warn/5 p-4 font-mono text-[13px] leading-relaxed sm:p-5"
+      role="note"
+      data-reveal
+    >
+      <p class="flex gap-2.5 text-warn">
+        <Icon name="alert" size={16} class="mt-0.5" />
+        <span>
+          <strong class="font-semibold">{t('deprecated.warning.label')}:</strong>
+          <span class="text-text/85">{t('deprecated.warning')}</span>
+        </span>
+      </p>
+      <p class="mt-2 pl-[1.6rem] text-muted">
+        at portfolio.render (tb18003.github.io/{lang === 'en' ? 'en/' : ''}#legacy)
+      </p>
+    </div>
+
+    <details class="group mt-6" data-reveal data-legacy>
+      <summary
+        class="inline-flex cursor-pointer list-none items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm text-muted transition-colors select-none hover:text-text [&::-webkit-details-marker]:hidden"
+      >
+        <Icon name="chevronDown" size={16} class="transition-transform group-open:rotate-180" />
+        <span class="group-open:hidden">{t('deprecated.summary', { n: deprecated.length })}</span>
+        <span class="hidden group-open:inline">{t('deprecated.hide')}</span>
+      </summary>
+
+      <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {deprecated.map((p) => <ProjectCard project={p} lang={lang} variant="legacy" />)}
+      </div>
+      <p class="mt-6 font-mono text-xs text-muted">// {t('deprecated.footnote')}</p>
+    </details>
+  </div>
+</section>
+
+<script>
+  // Following a link to #legacy (nav, shared URL) unfolds the list.
+  const details = document.querySelector<HTMLDetailsElement>('[data-legacy]');
+  const openIfTargeted = () => {
+    if (details && location.hash === '#legacy') details.open = true;
+  };
+  openIfTargeted();
+  window.addEventListener('hashchange', openIfTargeted);
+  document.querySelectorAll('a[href="#legacy"]').forEach((a) =>
+    a.addEventListener('click', () => {
+      if (details) details.open = true;
+    }),
+  );
+</script>

@@ -1,0 +1,61 @@
+---
+import Icon from './Icon.astro';
+import { links } from '../data/social';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const socials = [
+  { href: links.linkedin, icon: 'linkedin', label: t('contact.linkedin'), handle: 'tbmoralsanchez' },
+  { href: links.github, icon: 'github', label: t('contact.github'), handle: 'tb18003' },
+  { href: links.x, icon: 'x', label: t('contact.x'), handle: '@tb_18003' },
+] as const;
+---
+
+<section id="contact" class="border-t border-line py-24 sm:py-32">
+  <div class="container-page">
+    <div class="card relative isolate overflow-hidden p-8 sm:p-12" data-reveal>
+      <div class="absolute -right-24 -bottom-32 -z-10 size-80 rounded-full bg-accent/20 blur-3xl" aria-hidden="true"></div>
+      <p class="kicker">{t('contact.kicker')}</p>
+      <h2 class="section-title">{t('contact.title')}</h2>
+      <p class="mt-4 max-w-2xl text-lg text-pretty text-muted">{t('contact.text')}</p>
+      <ul class="mt-8 grid gap-3 sm:grid-cols-3">
+        {
+          socials.map((s) => (
+            <li>
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener"
+                class="group flex items-center gap-3 rounded-xl border border-line bg-surface-2 p-4 transition-colors hover:border-accent/50"
+              >
+                <Icon name={s.icon} size={20} />
+                <span class="min-w-0">
+                  <span class="block text-sm font-medium">{s.label}</span>
+                  <span class="block truncate font-mono text-xs text-muted">{s.handle}</span>
+                </span>
+                <Icon name="arrowUpRight" size={16} class="ml-auto text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-line py-8">
+  <div class="container-page flex flex-col items-center justify-between gap-3 text-sm text-muted sm:flex-row">
+    <p>© {year} Toni Blas · {t('footer.made')}</p>
+    <a href={links.repo} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 hover:text-text">
+      <Icon name="code" size={14} />
+      {t('footer.source')}
+    </a>
+  </div>
+</footer>

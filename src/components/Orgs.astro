@@ -1,0 +1,68 @@
+---
+import Icon from './Icon.astro';
+import { orgs, projects, type OrgId } from '../data/projects';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const items: { id: OrgId; text: string; mark: string; tint: string }[] = [
+  { id: 'afnd', text: t('orgs.afnd'), mark: 'AF', tint: 'bg-[#6d5dfc] text-white' },
+  { id: 'yb', text: t('orgs.yb'), mark: 'YB', tint: 'bg-[#facc15] text-black' },
+];
+const projectsOf = (id: OrgId) =>
+  projects.filter((p) => p.org === id && p.status !== 'deprecated').map((p) => p.title);
+---
+
+<section id="teams" class="border-t border-line py-24 sm:py-32">
+  <div class="container-page">
+    <div class="max-w-2xl" data-reveal>
+      <p class="kicker">{t('orgs.kicker')}</p>
+      <h2 class="section-title">{t('orgs.title')}</h2>
+    </div>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-2">
+      {
+        items.map(({ id, text, mark, tint }) => {
+          const org = orgs[id];
+          const own = projectsOf(id);
+          return (
+            <article class="card flex flex-col p-7" data-reveal>
+              <div class="flex items-center gap-4">
+                <span class={`grid size-12 place-items-center rounded-xl font-mono text-sm font-bold ${tint}`} aria-hidden="true">
+                  {mark}
+                </span>
+                <h3 class="text-xl font-semibold tracking-tight">{org.name}</h3>
+              </div>
+              <p class="mt-5 leading-relaxed text-pretty text-muted">{text}</p>
+              {own.length > 0 && (
+                <ul class="mt-5 flex flex-wrap gap-1.5">
+                  {own.map((name) => (
+                    <li class="chip text-text">{name}</li>
+                  ))}
+                </ul>
+              )}
+              <div class="mt-auto flex flex-wrap gap-2 pt-6">
+                <a href={org.github} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-xs font-medium transition hover:border-muted/50">
+                  <Icon name="github" size={14} />
+                  {t('orgs.github')}
+                </a>
+                {org.web && (
+                  <a href={org.web} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-xs font-medium transition hover:border-muted/50">
+                    <Icon name="globe" size={14} />
+                    {t('orgs.web')}
+                    <Icon name="arrowUpRight" size={12} />
+                  </a>
+                )}
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
