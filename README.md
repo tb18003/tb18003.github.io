@@ -6,7 +6,7 @@ Hecho con [Astro](https://astro.build) y [Tailwind CSS](https://tailwindcss.com)
 
 ## Desarrollo
 
-Necesitas Node 22.23.4 o superior (ver `.nvmrc`).
+Necesitas Node 22.23.4 o superior; en CI se usa Node 24 (ver `.nvmrc`).
 
 ```sh
 npm install
