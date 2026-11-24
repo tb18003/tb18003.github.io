@@ -88,6 +88,8 @@ const es = {
 
   'footer.made': 'Hecho con Astro y demasiado café.',
   'footer.source': 'Código fuente',
+  'footer.license': 'Licencia',
+  'footer.license.title': 'Contenido bajo licencia Creative Commons Reconocimiento 4.0 Internacional',
 } as const;
 
 export type UIKey = keyof typeof es;
@@ -173,6 +175,8 @@ const en: Record<UIKey, string> = {
 
   'footer.made': 'Built with Astro and too much coffee.',
   'footer.source': 'Source code',
+  'footer.license': 'License',
+  'footer.license.title': 'Licensed under Creative Commons Attribution 4.0 International',
 };
 
 const ui: Record<Lang, Record<UIKey, string>> = { es, en };
@@ -194,15 +198,8 @@ export const phrases: Record<Lang, string[]> = {
     'Sea un AFD, M = (K, Σ, δ, s, F)',
     'Si tiramos un dado 100 veces...',
     'SortedSet set = new SortedSet();',
-    'programmer like a lifestyle',
-    'pensando demasiado ;:u',
     'status: playgramming',
     'Linux forever',
-    'rAnDoM nUmBeEeEeEr',
-    '¿para cuándo un GTA?',
-    'all u need is love <3',
-    'Frases random, no está mal, ¿eh?',
-    'sudo make me a sandwich',
     "' OR 1=1 -- (aquí no, gracias)",
     'Mi contraseña no es 123456. Es 1234567.',
     'Zero trust, mucho café',
@@ -218,15 +215,8 @@ export const phrases: Record<Lang, string[]> = {
     'Let M = (K, Σ, δ, s, F) be a DFA',
     'If we roll a die 100 times...',
     'SortedSet set = new SortedSet();',
-    'programmer like a lifestyle',
-    'overthinking ;:u',
     'status: playgramming',
     'Linux forever',
-    'rAnDoM nUmBeEeEeEr',
-    'GTA when?',
-    'all u need is love <3',
-    'Random phrases, not bad, huh?',
-    'sudo make me a sandwich',
     "' OR 1=1 -- (not here, thanks)",
     'My password is not 123456. It is 1234567.',
     'Zero trust, lots of coffee',

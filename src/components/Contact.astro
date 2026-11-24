@@ -52,10 +52,35 @@ const socials = [
 
 <footer class="border-t border-line py-8">
   <div class="container-page flex flex-col items-center justify-between gap-3 text-sm text-muted sm:flex-row">
-    <p>© {year} Toni Blas · {t('footer.made')}</p>
-    <a href={links.repo} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 hover:text-text">
-      <Icon name="code" size={14} />
-      {t('footer.source')}
-    </a>
+    <p class="text-center sm:text-left">© {year} Toni Blas · {t('footer.made')}</p>
+    <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
+      <a
+        href={`https://creativecommons.org/licenses/by/4.0/deed.${lang}`}
+        target="_blank"
+        rel="license noopener"
+        title={t('footer.license.title')}
+        class="group inline-flex items-center gap-2 hover:text-text"
+      >
+        <span class="sr-only">{t('footer.license')}:</span>
+        <span
+          class="inline-flex overflow-hidden rounded-md border border-line font-mono text-[11px] leading-none font-semibold transition-colors group-hover:border-muted/60"
+          aria-hidden="true"
+        >
+          <span class="flex items-center gap-1 bg-text px-1.5 py-1 text-bg">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M11 9.6a3 3 0 1 0 0 4.8M17 9.6a3 3 0 1 0 0 4.8" />
+            </svg>
+            CC
+          </span>
+          <span class="bg-surface-2 px-1.5 py-1 text-text">BY 4.0</span>
+        </span>
+        <span>{t('footer.license')}</span>
+      </a>
+      <a href={links.repo} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 hover:text-text">
+        <Icon name="code" size={14} />
+        {t('footer.source')}
+      </a>
+    </div>
   </div>
 </footer>
