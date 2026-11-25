@@ -33,7 +33,7 @@ Para añadir un proyecto, añade una entrada a `projects` en `src/data/projects.
 
 Todo lo que hay en [public/](public/) se copia sin cambios a la raíz del sitio:
 
-- `/.well-known/assetlinks.json` y `/musicmania/callback`: App Link del login con Spotify de [MusicMania](https://github.com/tb18003/musicmania). **No moverlos ni renombrarlos.**
+- `/.well-known/assetlinks.json`: App Link del login con Spotify de [MusicMania](https://github.com/tb18003/musicmania). **No moverlo ni renombrarlo.** La página `/musicmania/callback` la sirve ahora el propio sitio de MusicMania (GitHub Pages del repo `musicmania`), que ocupa toda la ruta `/musicmania/`.
 - `/horario/`: el antiguo proyecto Horario.
 
 Los proyectos con su propio repo de Pages (como `/Periodic-Time/`) se sirven desde sus repos y no dependen de este.

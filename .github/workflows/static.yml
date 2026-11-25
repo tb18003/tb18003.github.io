@@ -36,8 +36,10 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+      # MusicMania's Android App Link needs assetlinks.json at the root of this site. The
+      # /musicmania/callback page itself is now served by MusicMania's own Pages site.
       - name: Check Android App Links file is in the build
-        run: test -f dist/.well-known/assetlinks.json && test -f dist/musicmania/callback.html
+        run: test -f dist/.well-known/assetlinks.json
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
